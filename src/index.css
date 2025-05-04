@@ -1,0 +1,140 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+ 
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+ 
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --ring: 215 20.2% 65.1%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+ 
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+ 
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+ 
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+ 
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+ 
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --ring: 216 34% 17%;
+ 
+    --radius: 0.5rem;
+  }
+
+  /* Preserve legacy class names */
+  .bg-rentflow-primary {
+    @apply bg-primary;
+  }
+  .text-rentflow-primary {
+    @apply text-primary;
+  }
+  .hover\:bg-rentflow-secondary:hover {
+    @apply hover:bg-primary/80;
+  }
+  .border-rentflow-primary {
+    @apply border-primary;
+  }
+  .rentflow-input {
+    @apply bg-background border-input;
+  }
+  
+  /* Add new class names */
+  .bg-hrms-primary {
+    @apply bg-primary;
+  }
+  .text-hrms-primary {
+    @apply text-primary;
+  }
+  .hover\:bg-hrms-secondary:hover {
+    @apply hover:bg-primary/80;
+  }
+  .border-hrms-primary {
+    @apply border-primary;
+  }
+  .hrms-input {
+    @apply bg-background border-input;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+.sidebar-link {
+  @apply flex items-center px-3 py-2 text-sm rounded-md transition-colors gap-3 text-muted-foreground hover:bg-accent hover:text-accent-foreground;
+}
+
+.sidebar-link-active {
+  @apply bg-accent text-accent-foreground;
+}
+
+.toggle-button-active {
+  @apply bg-primary text-primary-foreground font-medium;
+}
+
+.toggle-button-inactive {
+  @apply bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground;
+}
+
+.rentflow-card {
+  @apply bg-card text-card-foreground rounded-lg border shadow-sm;
+}
+
+.hrms-card {
+  @apply bg-card text-card-foreground rounded-lg border shadow-sm;
+}
