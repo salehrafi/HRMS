@@ -112,62 +112,6 @@ const TenantProfile = () => {
             </form>
           </CardContent>
         </Card>
-
-        {/* Password Update */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Change Password</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handlePasswordUpdate} className="space-y-4">
-              <div className="space-y-2">
-                <label htmlFor="currentPassword" className="text-sm font-medium">
-                  Current Password
-                </label>
-                <Input
-                  id="currentPassword"
-                  type="password"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  className="hrms-input"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="newPassword" className="text-sm font-medium">
-                  New Password
-                </label>
-                <Input
-                  id="newPassword"
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="hrms-input"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="text-sm font-medium">
-                  Confirm New Password
-                </label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="hrms-input"
-                />
-              </div>
-              
-              <Button 
-                type="submit" 
-                className="bg-hrms-primary hover:bg-hrms-secondary"
-              >
-                Update Password
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
       </div>
     </DashboardLayout>
   );

@@ -6,9 +6,11 @@ import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/App";
 import { userService } from "@/services/UserService";
 import { Mail, Lock, User } from "lucide-react";
+import { tenantData, adminData } from "@/lib/mock-data";
+
 
 // Load mock data if localStorage is empty
-import { tenantData } from "@/lib/mock-data";
+// import { tenantData } from "@/lib/mock-data";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Login = () => {
@@ -21,27 +23,44 @@ const Login = () => {
   const { login } = useAuth();
 
   // Initialize database with mock data if empty
+  // const initializeData = () => {
+  //   // Check if we already have tenants, if not, initialize with mock data
+  //   const existingTenants = userService.getTenants();
+  //   if (existingTenants.length === 0) {
+  //     tenantData.forEach(tenant => {
+  //       userService.saveTenant(tenant);
+  //     });
+  //   }
+
+  //   // Add a default admin if none exists
+  //   const existingAdmins = userService.getAdmins();
+  //   if (existingAdmins.length === 0) {
+  //     userService.registerAdmin(
+  //       "Mr. X", 
+  //       "admin@hrms.com", 
+  //       "+880 123-4567", 
+  //       "password"
+  //     );
+  //   }
+  // };
+  
   const initializeData = () => {
-    // Check if we already have tenants, if not, initialize with mock data
+    // Initialize tenant data if not already present
     const existingTenants = userService.getTenants();
     if (existingTenants.length === 0) {
-      tenantData.forEach(tenant => {
+      tenantData.forEach((tenant) => {
         userService.saveTenant(tenant);
       });
     }
-
-    // Add a default admin if none exists
+  
+    // Initialize admin data if not already present
     const existingAdmins = userService.getAdmins();
     if (existingAdmins.length === 0) {
-      userService.registerAdmin(
-        "Md. Sabbir Hossain", 
-        "admin@hrms.com", 
-        "+880 123-4567", 
-        "password"
-      );
+      // Assuming adminData is imported from mock-data.ts and has full admin info
+      userService.saveAdmin(adminData); // Make sure saveAdmin exists in userService
     }
   };
-
+  
   initializeData();
 
   const handleLogin = (e: React.FormEvent) => {

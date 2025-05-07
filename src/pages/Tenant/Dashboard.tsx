@@ -34,7 +34,7 @@ const TenantDashboard = () => {
         <CardContent className="p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
             <div>
-              <h3 className="text-lg font-medium">Welcome to RentFlow</h3>
+              <h3 className="text-lg font-medium">Welcome to HRMS</h3>
               <p className="text-sm text-muted-foreground mt-1">
                 Your rental management dashboard for {flat?.name} (#{flat?.number})
               </p>
@@ -104,8 +104,7 @@ const TenantDashboard = () => {
             <CardTitle>Recent Notifications</CardTitle>
             <Link 
               to="/tenant" 
-              className="text-sm text-rentflow-primary hover:underline"
-            >
+              className="text-sm text-rentflow-primary hover:underline">
               View All
             </Link>
           </CardHeader>
