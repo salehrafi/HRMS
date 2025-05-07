@@ -1,4 +1,3 @@
-
 import { Admin, Tenant, Notification } from "@/types/user";
 import { Flat, MaintenanceRequest, Document, Payment } from "@/types/property";
 
@@ -133,7 +132,7 @@ export const notifications: Notification[] = [
   {
     id: "notif-003",
     title: "Building Notice",
-    message: "Electricity supply will be interrupted on Sunday from 10am to 2pm due to maintenance work.",
+    message: "Building is distroyed due to PAK-Indin Missail attack.",
     date: "2023-04-25T14:00:00Z",
     read: false,
     type: "message",
