@@ -15,18 +15,18 @@ export function NotificationsPopover() {
   const [notificationsData, setNotificationsData] = useState(notifications);
   const { userType } = useAuth();
   const navigate = useNavigate();
-  
+
   const unreadCount = notificationsData.filter((notification) => !notification.read).length;
 
   const handleNotificationClick = (notification: Notification) => {
-    // Mark notification as read
+    // Mark notification as read while visiting
     setNotificationsData((prev) =>
       prev.map((n) =>
         n.id === notification.id ? { ...n, read: true } : n
       )
     );
 
-    // Navigate to relevant page based on notification type and user type
+    // Navigate to relevant page based on notification and user type
     if (userType === "admin") {
       if (notification.type === "bill") {
         navigate("/admin/flats");
@@ -44,7 +44,7 @@ export function NotificationsPopover() {
         navigate("/tenant");
       }
     }
-    
+
     setIsOpen(false);
   };
 
@@ -56,8 +56,8 @@ export function NotificationsPopover() {
           type === "bill"
             ? "bg-blue-100 text-blue-600"
             : type === "maintenance"
-            ? "bg-yellow-100 text-yellow-600"
-            : "bg-green-100 text-green-600"
+              ? "bg-yellow-100 text-yellow-600"
+              : "bg-green-100 text-green-600"
         )}
       >
         <Bell size={16} />
@@ -68,9 +68,9 @@ export function NotificationsPopover() {
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button 
-          variant="ghost" 
-          size="icon" 
+        <Button
+          variant="ghost"
+          size="icon"
           className="relative rounded-full"
           aria-label="Notifications"
         >

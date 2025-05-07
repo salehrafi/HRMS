@@ -14,7 +14,7 @@ export function ThemeToggle() {
       className="rounded-full"
       aria-label="Toggle theme"
     >
-      {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+      {theme === "light" ? <Moon size={25} /> : <Sun size={25} />}
     </Button>
   );
 }
