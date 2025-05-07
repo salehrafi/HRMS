@@ -247,7 +247,7 @@ const Login = () => {
           <br />
           <br />
           <footer>
-            <p>&copy;2025 All rights reserved for CSE347-purpose. By <strong>Md. Saleh Rafi</strong></p>
+            <p>&copy;May 2025. All rights reserved for CSE347-purpose. By <strong>Md. Saleh Rafi</strong></p>
           </footer>
         </div>
       </div>
