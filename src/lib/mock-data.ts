@@ -3,7 +3,7 @@ import { Flat, MaintenanceRequest, Document, Payment } from "@/types/property";
 
 export const adminData: Admin = {
   id: "admin-001",
-  name: "Mr. X",
+  name: "Md. Sabbir Hossain",
   email: "admin@hrms.com",
   phone: "+880 123-4567",
   role: "admin",
