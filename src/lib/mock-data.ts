@@ -132,9 +132,9 @@ export const notifications: Notification[] = [
   {
     id: "notif-003",
     title: "Building Notice",
-    message: "Building is distroyed due to PAK-Indin Missail attack.",
+    message: "Building is distroyed due to PAK-Indain Missail attack.",
     date: "2023-04-25T14:00:00Z",
-    read: false,
+    read: true,
     type: "message",
   },
 ];
