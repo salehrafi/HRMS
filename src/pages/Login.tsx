@@ -43,7 +43,7 @@ const Login = () => {
   //     );
   //   }
   // };
-  
+
   const initializeData = () => {
     // Initialize tenant data if not already present
     const existingTenants = userService.getTenants();
@@ -52,7 +52,7 @@ const Login = () => {
         userService.saveTenant(tenant);
       });
     }
-  
+
     // Initialize admin data if not already present
     const existingAdmins = userService.getAdmins();
     if (existingAdmins.length === 0) {
@@ -60,12 +60,12 @@ const Login = () => {
       userService.saveAdmin(adminData); // Make sure saveAdmin exists in userService
     }
   };
-  
+
   initializeData();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (activeTab === "admin") {
       // Simple validation
       if (!email || !password) {
@@ -76,7 +76,7 @@ const Login = () => {
         });
         return;
       }
-      
+
       // Try to login admin
       const admin = userService.loginAdmin(email, password);
       if (admin) {
@@ -103,7 +103,7 @@ const Login = () => {
         });
         return;
       }
-      
+
       // Try to login tenant
       const tenant = userService.loginTenant(loginCode);
       if (tenant) {
@@ -139,17 +139,15 @@ const Login = () => {
           {/* Toggle Buttons */}
           <div className="mb-6 flex rounded-full bg-accent p-1">
             <button
-              className={`flex-1 rounded-full py-2 text-sm font-medium ${
-                activeTab === "admin" ? "toggle-button-active" : "toggle-button-inactive"
-              }`}
+              className={`flex-1 rounded-full py-2 text-sm font-medium ${activeTab === "admin" ? "toggle-button-active" : "toggle-button-inactive"
+                }`}
               onClick={() => setActiveTab("admin")}
             >
               Admin Login
             </button>
             <button
-              className={`flex-1 rounded-full py-2 text-sm font-medium ${
-                activeTab === "tenant" ? "toggle-button-active" : "toggle-button-inactive"
-              }`}
+              className={`flex-1 rounded-full py-2 text-sm font-medium ${activeTab === "tenant" ? "toggle-button-active" : "toggle-button-inactive"
+                }`}
               onClick={() => setActiveTab("tenant")}
             >
               Tenant Login
@@ -246,6 +244,11 @@ const Login = () => {
           <p>Demo Credentials:</p>
           <p>Admin: "admin@hrms.com" || Password: "password"</p>
           <p>Tenant: Use code 123456</p>
+          <br />
+          <br />
+          <footer>
+            <p>&copy;2025 All rights reserved for CSE347-purpose. By <strong>Md. Saleh Rafi</strong></p>
+          </footer>
         </div>
       </div>
     </div>
