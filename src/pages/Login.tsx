@@ -102,6 +102,8 @@ const Login = () => {
 //   }
 // };
 
+// ###################################################################################################################
+ /* Supabase connection */
 const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -117,7 +119,7 @@ const handleLogin = async (e: React.FormEvent) => {
 
     // Check credentials against supa_hrms table
     const { data, error } = await supabase
-      .from('supa_hrms')
+      .from('registration_hrms')
       .select('*')
       .eq('email', email)
       .eq('password', password)
