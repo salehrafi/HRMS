@@ -1,5 +1,6 @@
 
 import { User, Admin, Tenant, UserType } from "@/types/user";
+import {supabase} from '../../database/supabaseClient'
 
 class UserService {
   private readonly ADMIN_KEY = "hrms_admins";

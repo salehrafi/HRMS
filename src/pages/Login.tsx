@@ -7,7 +7,7 @@ import { useAuth } from "@/App";
 import { userService } from "@/services/UserService";
 import { Mail, Lock, User } from "lucide-react";
 import { tenantData, adminData } from "@/lib/mock-data";
-
+import { supabase } from "../../database/supabaseClient";
 
 // Load mock data if localStorage is empty
 // import { tenantData } from "@/lib/mock-data";
@@ -21,28 +21,6 @@ const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { login } = useAuth();
-
-  // Initialize database with mock data if empty
-  // const initializeData = () => {
-  //   // Check if we already have tenants, if not, initialize with mock data
-  //   const existingTenants = userService.getTenants();
-  //   if (existingTenants.length === 0) {
-  //     tenantData.forEach(tenant => {
-  //       userService.saveTenant(tenant);
-  //     });
-  //   }
-
-  //   // Add a default admin if none exists
-  //   const existingAdmins = userService.getAdmins();
-  //   if (existingAdmins.length === 0) {
-  //     userService.registerAdmin(
-  //       "Mr. X", 
-  //       "admin@hrms.com", 
-  //       "+880 123-4567", 
-  //       "password"
-  //     );
-  //   }
-  // };
 
   const initializeData = () => {
     // Initialize tenant data if not already present
@@ -63,65 +41,131 @@ const Login = () => {
 
   initializeData();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+// const handleLogin = async (e: React.FormEvent) => {
+//   e.preventDefault();
 
-    if (activeTab === "admin") {
-      // Simple validation
-      if (!email || !password) {
-        toast({
-          title: "Error",
-          description: "Please enter both email and password",
-          variant: "destructive",
-        });
-        return;
-      }
+//   if (activeTab === "admin") {
 
-      // Try to login admin
-      const admin = userService.loginAdmin(email, password);
-      if (admin) {
-        login("admin");
-        navigate("/admin");
-        toast({
-          title: "Success",
-          description: `Welcome back, ${admin.name}!`,
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "Invalid credentials",
-          variant: "destructive",
-        });
-      }
-    } else {
-      // Simple validation for tenant
-      if (!loginCode) {
-        toast({
-          title: "Error",
-          description: "Please enter your login code",
-          variant: "destructive",
-        });
-        return;
-      }
+//     if (!email || !password) {
+//       toast({
+//         title: "Error",
+//         description: "Please enter both email and password",
+//         variant: "destructive",
+//       });
+//       return;
+//     }
 
-      // Try to login tenant
-      const tenant = userService.loginTenant(loginCode);
-      if (tenant) {
-        login("tenant");
-        navigate("/tenant");
-        toast({
-          title: "Success",
-          description: `Welcome back, ${tenant.name}!`,
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "Invalid login code",
-          variant: "destructive",
-        });
-      }
+//     const { data, error } = await supabase.auth.signInWithPassword({
+//       email,
+//       password,
+//     });
+
+//     if (error) {
+//       toast({
+//         title: "Error",
+//         description: error.message,
+//         variant: "destructive",
+//       });
+//     } else {
+//       login("admin");
+//       navigate("/admin");
+//       toast({
+//         title: "Success",
+//         description: `Welcome back, ${data.user.email}!`,
+//       });
+//     }
+//   } else {
+//     if (!loginCode) {
+//       toast({
+//         title: "Error",
+//         description: "Please enter your login code",
+//         variant: "destructive",
+//       });
+//       return;
+//     }
+
+//     const tenant = userService.loginTenant(loginCode);
+//     if (tenant) {
+//       login("tenant");
+//       navigate("/tenant");
+//       toast({
+//         title: "Success",
+//         description: `Welcome back, ${tenant.name}!`,
+//       });
+//     } else {
+//       toast({
+//         title: "Error",
+//         description: "Invalid login code",
+//         variant: "destructive",
+//       });
+//     }
+//   }
+// };
+
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (activeTab === "admin") {
+    if (!email || !password) {
+      toast({
+        title: "Error",
+        description: "Please enter both email and password",
+        variant: "destructive",
+      });
+      return;
     }
-  };
+
+    // Check credentials against supa_hrms table
+    const { data, error } = await supabase
+      .from('supa_hrms')
+      .select('*')
+      .eq('email', email)
+      .eq('password', password)
+      .single();
+
+    if (error || !data) {
+      toast({
+        title: "Error",
+        description: error?.message || "Invalid email or password",
+        variant: "destructive",
+      });
+    } else {
+      login("admin");
+      navigate("/admin");
+      toast({
+        title: "Success",
+        description: `Welcome back, ${data.email}!`,
+      });
+    }
+  } else {
+    // Tenant login remains the same
+    if (!loginCode) {
+      toast({
+        title: "Error",
+        description: "Please enter your login code",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const tenant = userService.loginTenant(loginCode);
+    if (tenant) {
+      login("tenant");
+      navigate("/tenant");
+      toast({
+        title: "Success",
+        description: `Welcome back, ${tenant.name}!`,
+      });
+    } else {
+      toast({
+        title: "Error",
+        description: "Invalid login code",
+        variant: "destructive",
+      });
+    }
+  }
+};
+
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
