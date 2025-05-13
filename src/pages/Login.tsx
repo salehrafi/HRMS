@@ -117,28 +117,37 @@ const handleLogin = async (e: React.FormEvent) => {
       return;
     }
 
-    // Check credentials against supa_hrms table
-    const { data, error } = await supabase
-      .from('registration_hrms')
-      .select('*')
-      .eq('email', email)
-      .eq('password', password)
-      .single();
+    try {
+      // Using .maybeSingle() which returns null instead of error when no/multiple rows
+      const { data, error } = await supabase
+        .from('supa_hrms') // Make sure this is your exact table name
+        .select('*')
+        .eq('email', email)
+        .eq('password', password)
+        .maybeSingle(); // Changed from single()
 
-    if (error || !data) {
-      toast({
-        title: "Error",
-        description: error?.message || "Invalid email or password",
-        variant: "destructive",
-      });
-    } else {
+      if (error) throw error;
+      
+      if (!data) {
+        throw new Error("Invalid email or password");
+      }
+
       login("admin");
       navigate("/admin");
       toast({
         title: "Success",
         description: `Welcome back, ${data.email}!`,
       });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error 
+          ? error.message 
+          : "Login failed",
+        variant: "destructive",
+      });
     }
+
   } else {
     // Tenant login remains the same
     if (!loginCode) {
