@@ -120,7 +120,7 @@ const handleLogin = async (e: React.FormEvent) => {
     try {
       // Using .maybeSingle() which returns null instead of error when no/multiple rows
       const { data, error } = await supabase
-        .from('supa_hrms') // Make sure this is your exact table name
+        .from('registration_hrms') // Make sure this is your exact table name
         .select('*')
         .eq('email', email)
         .eq('password', password)
@@ -147,7 +147,6 @@ const handleLogin = async (e: React.FormEvent) => {
         variant: "destructive",
       });
     }
-
   } else {
     // Tenant login remains the same
     if (!loginCode) {
